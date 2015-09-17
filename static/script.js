@@ -7,6 +7,17 @@ function changePage2() {
 function changePage3() {
   document.location.href = '/uploads';
 }
+
+function login(username) {
+  var x ="username=" + username;
+  document.cookie=x;
+  changePage2();
+}
+
+function checkuserstatus(){
+  var x = document.cookie;
+  if(x.indexOf('username=') == -1) document.location.href = '/notloggedin';
+}
 //function transition(thingy, newThingy){
 //  $(thingy).toggleClass(newThingy);
 //}

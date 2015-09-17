@@ -7,7 +7,9 @@ urls = (
     '/', 'index',
     '/feed', 'feed',
     '/uploads', 'uploads',
-    '/newuser', 'newuser'
+    '/newuser', 'newuser',
+    '/login' , 'login',
+    '/notloggedin', 'notloggedin'
     )
 app = web.application(urls, globals(), True)
 
@@ -22,7 +24,7 @@ class index:
         users = db.select('users' , where='name ="' + un + '"')
         if(users[0].password == pw):
             print('login success')
-            raise web.seeother('/feed')
+            return render.login(un)
         else:
             print('login failed')
             raise web.seeother('/')
@@ -60,6 +62,9 @@ class newuser:
         db.insert('users' , name = newUsername , password = newPassword)
         raise web.seeother('/feed')
 
+class notloggedin:
+    def GET(self):
+        return render.notloggedin()
 #main method
 if __name__ == '__main__':
     app.run()
