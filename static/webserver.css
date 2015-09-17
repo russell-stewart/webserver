@@ -25,6 +25,8 @@ header {
 
 .smalltext {
   font-size: 30px;
+  color: #173F73;
+  text-decoration: none;
 }
 
 .post {

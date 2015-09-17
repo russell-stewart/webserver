@@ -21,7 +21,11 @@ class index:
         pw = form.password
         users = db.select('users' , where='name ="' + un + '"')
         if(users[0].password == pw):
-            print("login success")
+            print('login success')
+            raise web.seeother('/feed')
+        else:
+            print('login failed')
+            raise web.seeother('/')
             #redirect to main page
 
 class feed:
