@@ -10,6 +10,6 @@ $def with (arr)
       pepe feed
     </div>
     <br>
-    $for i in arr: <div class ='post'><img class = 'image' src = 'static/uploads/$i'></img></div><br>
+    $for i in arr: <div class ='post'><img class = 'image' src = '$i.address'></img><br><div class = "smalltext">Posted by $i.username</div></div><br>
   </body>
 </html>

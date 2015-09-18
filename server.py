@@ -2,6 +2,7 @@ import web
 import os
 render = web.template.render('templates/', base ='layout')
 db = web.database(dbn = 'sqlite' , db = 'database')
+posts = web.database(dbn = 'sqlite' , db = 'posts.db')
 
 urls = (
     '/', 'index',
@@ -35,9 +36,10 @@ class index:
 
 class feed:
     def GET(self):
-        x = os.listdir('static/uploads')
-        x.remove('.DS_Store')
-        return render.feed(x)
+        stuff = posts.select('posts')
+        #x = os.listdir('static/uploads')
+        #x.remove('.DS_Store')
+        return render.feed(stuff)
 
 class uploads:
     def GET(self):
@@ -52,6 +54,10 @@ class uploads:
             fout = open(filedir +'/'+ filename,'w') # creates the file where the uploaded file should be stored
             fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
+
+            user = web.cookies().get('username')
+            posts.insert('posts' , address = (filedir +'/'+ filename) , username = user)#stores the image address and username in a database
+
         raise web.seeother('/feed')
 
 class newuser:
