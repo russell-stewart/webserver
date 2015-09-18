@@ -22,13 +22,16 @@ class index:
         un = form.username
         pw = form.password
         users = db.select('users' , where='name ="' + un + '"')
-        if(users[0].password == pw):
-            print('login success')
-            return render.login(un)
-        else:
-            print('login failed')
+        try:
+            if(users[0].password == pw):
+                print('login success')
+                return render.login(un)
+            else:
+                print('login failed')
+                raise web.seeother('/')
+                #redirect to main page
+        except:
             raise web.seeother('/')
-            #redirect to main page
 
 class feed:
     def GET(self):
